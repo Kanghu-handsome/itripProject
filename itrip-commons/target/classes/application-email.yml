@@ -1,0 +1,6 @@
+spring:
+  mail:
+    host: smtp.163.com
+    username: kanghu_handsome@163.com
+    password: kanghu666
+    default-encoding: utf-8

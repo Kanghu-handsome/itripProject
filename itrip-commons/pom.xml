@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                                http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>itrip-commons</artifactId>
+  <packaging>jar</packaging>
+
+  <!-- 配置使用itrip-parent作为子项目的父级依赖关系 [BEGIN] -->
+  <parent>
+    <groupId>cn.ekgc.itrip</groupId>
+    <artifactId>itrip-parent</artifactId>
+    <version>4.0.0</version>
+  </parent>
+  <!-- 配置使用itrip-parent作为子项目的父级依赖关系 [END] -->
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <springfox-swagger.version>2.9.2</springfox-swagger.version>
+  </properties>
+
+  <dependencies>
+    <!-- 无论是Provider端还是Consumer端，都属于Eureka Client端，因此需要配置Eureka Client端依赖关系 [BEGIN] -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+    <!-- 无论是Provider端还是Consumer端，都属于Eureka Client端，因此需要配置Eureka Client端依赖关系 [END] -->
+
+    <!-- 配置Consumer远程调用Provider所使用的OpenFeign的依赖关系 [BEGIN] -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+    </dependency>
+    <!-- 配置Consumer远程调用Provider所使用的OpenFeign的依赖关系 [END] -->
+
+    <!-- 配置使用Swagger和Spring Boot结合的依赖关系 [BEGIN] -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>${springfox-swagger.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>${springfox-swagger.version}</version>
+    </dependency>
+    <!-- 配置使用Swagger和Spring Boot结合的依赖关系 [END] -->
+    <!--配置spring boot 和solr结合的依赖关系[BEGIN]-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-solr</artifactId>
+    </dependency>
+    <!--配置spring boot 和solr结合的依赖关系[END]-->
+
+    <!-- 配置Spring Boot Email依赖关系 [BEGIN] -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-mail</artifactId>
+    </dependency>
+    <!-- 配置Spring Boot Email依赖关系 [END] -->
+
+    <!-- 配置Redis和Spring Boot结合的依赖关系 [BEGIN] -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+    <!-- 配置Redis和Spring Boot结合的依赖关系 [END] -->
+
+    <!-- 配置容联云的依赖关系 [BEGIN] -->
+    <dependency>
+      <groupId>com.cloopen</groupId>
+      <artifactId>ccp_rest_sdk</artifactId>
+      <version>2.7</version>
+    </dependency>
+    <!-- 配置容联云的依赖关系 [END] -->
+
+    <!-- 引入java-jwt依赖关系 [BEGIN] -->
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>3.8.3</version>
+    </dependency>
+    <!-- 引入java-jwt依赖关系 [END] -->
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
