@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ekgc.itrip.dao.UserInfoDao">
+	<select id="findLinkUserListByQuery" parameterType="java.util.Map" resultMap="linkUserMap">
+		select
+		iulu.id,
+		iulu.linkUserName,
+		iulu.linkIdCard,
+		iulu.linkPhone,
+		iulu.userId,
+		iulu.creationDate,
+		iulu.createdBy,
+		iulu.modifyDate,
+		iulu.modifiedBy
+		from
+		itrip_user_link_user iulu join itrip_user iu on iulu.userId=iu.id
+		<where>
+			<trim suffixOverrides="and">
+				<if test="userCode != null">
+					iu.userCode=#{userCode} and
+				</if>
+			</trim>
+		</where>
+	</select>
+	<insert id="adduserlinkuser" parameterType="UserLinkUser">
+		insert into itrip_user_link_user(
+		<trim suffixOverrides=",">
+			<if test="linkUserName != null">linkUserName,</if>
+			<if test="linkIdCard != null">linkIdCard,</if>
+			<if test="linkPhone != null">linkPhone,</if>
+			<if test="userId != null">userId,</if>
+			<if test="linkIdCardType != null">linkIdCardType,</if>
+	</trim>
+		)
+		values(
+		<trim suffixOverrides=",">
+		<if test="linkUserName != null">#{linkUserName},</if>
+		<if test="linkIdCard != null">#{linkIdCard},</if>
+		<if test="linkPhone != null">#{linkPhone},</if>
+		<if test="userId != null">#{userId},</if>
+		<if test="linkIdCardType != null">#{linkIdCardType},</if>
+		</trim>
+		)
+
+	</insert>
+	<delete id="deluserlinkuser" parameterType="java.lang.Long">
+		delete
+		from itrip_user_link_user
+		<where>
+					id=#{ids}
+		</where>
+	</delete>
+	<update id="modifyuserlinkuser" parameterType="UserLinkUser">
+		update itrip_user_link_user
+		set
+		<trim suffixOverrides=",">
+			<if test="linkUserName !=null">linkUserName=#{linkUserName},</if>
+			<if test="linkIdCard !=null">linkIdCard=#{linkIdCard},</if>
+			<if test="linkPhone !=null">linkPhone=#{linkPhone},</if>
+			<if test="userId !=null">userId=#{userId},</if>
+			<if test="modifyDate !=null">modifyDate=#{modifyDate},</if>
+			<if test="modifiedBy !=null">modifiedBy=#{modifiedBy},</if>
+			<if test="linkIdCardType !=null">linkIdCardType=#{linkIdCardType},</if>
+		</trim>
+		<where>
+		<if test="id !=null">id=#{id}</if>
+		</where>
+	</update>
+	<resultMap id="linkUserMap" type="UserLinkUser">
+		<id property="id" javaType="java.lang.Long" column="id"/>
+		<result property="linkUserName" javaType="java.lang.String" column="linkUserName"/>
+		<result property="linkIdCard" javaType="java.lang.String" column="linkIdCard"/>
+		<result property="linkPhone" javaType="java.lang.String" column="linkPhone"/>
+		<result property="userId" javaType="java.lang.Long" column="userId"/>
+		<result property="linkIdCardType" javaType="java.lang.Integer" column="linkIdCardType"/>
+		<result property="modifyDate" javaType="java.util.Date" column="modifyDate"/>
+		<result property="modifiedBy" javaType="java.lang.Long" column="modifiedBy"/>
+	</resultMap>
+</mapper>
