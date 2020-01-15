@@ -97,16 +97,6 @@ public class CommontServiceImpl implements CommentService {
 		return commentCountVO;
 	}
 
-	/***
-	 * <b>获取酒店相关信息</b>
-	 */
-	public ItripHotelDescVO gethoteldesc(Long hotelId) throws Exception {
-		ItripHotelDescVO itripHotelDescVO=new ItripHotelDescVO();
-		Map<String,Object>queryMap=new HashMap<String,Object>();
-		queryMap.put("hotelId", hotelId);
-		List<Hotel>itripHotelList=hotelDao.findHotelListByQuery(queryMap);
-		return itripHotelDescVO;
-	}
 
 	/**
 	 * <b>查询出游类型列表</b>

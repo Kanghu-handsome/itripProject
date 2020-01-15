@@ -112,6 +112,13 @@ public class HotelTransportImpl implements HotelTransport {
 	public List<HotelImage> getTypeId(@RequestParam Long targetId)throws Exception{
 		return hotelService.getTypeId(targetId);
 	}
+	/***
+	 * <b>获取酒店相关信息</b>
+	 */
+	@RequestMapping(value = "/gethoteldesc",method = RequestMethod.POST)
+	public Hotel gethoteldesc(@RequestParam Long hotelId)throws Exception{
+		return hotelService.gethoteldesc(hotelId);
+	}
 
 
 }

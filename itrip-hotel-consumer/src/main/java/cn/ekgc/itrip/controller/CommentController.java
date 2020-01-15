@@ -5,6 +5,7 @@ import cn.ekgc.itrip.base.enums.SuccessEnum;
 import cn.ekgc.itrip.comment.transport.CommentTransport;
 import cn.ekgc.itrip.hotel.transport.HotelOrderTransport;
 import cn.ekgc.itrip.hotel.transport.HotelRoomTransport;
+import cn.ekgc.itrip.hotel.transport.HotelTransport;
 import cn.ekgc.itrip.pojo.entity.*;
 import cn.ekgc.itrip.pojo.vo.*;
 import cn.ekgc.itrip.user.transport.UserTransport;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +34,8 @@ public class CommentController extends BaseController {
 	private UserTransport userTransport;
 	@Autowired
 	private HotelRoomTransport hotelRoomTransport;
+	@Autowired
+	private HotelTransport hotelTransport;
 	@RequestMapping(value = "/getcommentlist", method = RequestMethod.POST)
 	public ResponseResult<Object> getCommentListByPage(@RequestBody SearchCommentVO queryVO) throws Exception {
 		// 使用数据持久层查询分页信息
@@ -83,9 +85,9 @@ public class CommentController extends BaseController {
 	 * <b>获取酒店相关信息</b>
 	 */
 	@RequestMapping(value = "/gethoteldesc/{hotelId}",method = RequestMethod.GET)
-	public ResponseResult<Object>gethoteldesc(@PathVariable("hotelId") Long hotelId)throws Exception{
-		ItripHotelDescVO itripHotelDescVO= commentTransport.gethoteldesc(hotelId);
-		return new ResponseResult<>(SuccessEnum.SUCCESS_TRUE,itripHotelDescVO);
+	public ResponseResult<Object> gethoteldesc(@PathVariable("hotelId") Long hotelId)throws Exception{
+		Hotel hotel= hotelTransport.gethoteldesc(hotelId);
+		return new ResponseResult<>(SuccessEnum.SUCCESS_TRUE,hotel);
 
 	}
 

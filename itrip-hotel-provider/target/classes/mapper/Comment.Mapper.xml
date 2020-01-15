@@ -45,6 +45,16 @@
 		where
 			ic.hotelId=#{hotelId}
 	</select>
+	<insert id="add" parameterType="Comment">
+		insert into
+			itrip_comment
+			(hotelId,productId,orderId,productType,content,userId,isHavingImg,
+			positionScore,facilitiesScore,serviceScore,hygieneScore,score,tripMode,isOk,creationDate,createdBy) values(
+			#{hotelId},#{productId},	#{orderId},	#{productType},	#{content},	#{userId},#{isHavingImg},	#{positionScore},
+				#{facilitiesScore},
+				#{serviceScore},	#{hygieneScore},	#{score},	#{tripMode},	#{isOk},#{creationDate}	,#{createdBy}
+			)
+	</insert>
 	<resultMap id="commentMap" type="Comment">
 		<id property="id" javaType="java.lang.Long" column="id"/>
 		<result property="hotelId" javaType="java.lang.Long" column="hotelId"/>

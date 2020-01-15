@@ -39,13 +39,6 @@ public class CommentTransportImpl implements CommentTransport {
 	public CommentCountVO getcount(@RequestParam Long hotelId) throws Exception {
 		return commentService.getcount(hotelId);
 	}
-	/***
-	 * <b>获取酒店相关信息</b>
-	 */
-	@RequestMapping(value = "/gethoteldesc",method = RequestMethod.POST)
-	public ItripHotelDescVO gethoteldesc(@RequestParam Long hotelId)throws Exception{
-		return commentService.gethoteldesc(hotelId);
-	}
 	/**
 	 * <b>查询出游类型列表</b>
 	 * @param

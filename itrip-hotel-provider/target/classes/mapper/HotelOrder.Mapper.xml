@@ -104,6 +104,22 @@
 		</where>
 		<if test="begin !=null">limit #{begin},#{size}</if>
 	</select>
+	<update id="updateOrderStatus" parameterType="HotelOrder">
+	update
+	itrip_hotel_order
+		set
+		<trim suffixOverrides=",">
+			<if test="orderStatus !=null">orderStatus=#{orderStatus},</if>
+			<if test="payType !=null">payType=#{payType},</if>
+			<if test="tradeNo !=null">tradeNo=#{tradeNo},</if>
+			<if test="modifiedBy !=null">modifiedBy=#{modifiedBy},</if>
+			<if test="modifyDate !=null">modifyDate=#{modifyDate},</if>
+
+		</trim>
+		<where>
+			<if test="id !=null">id =#{id}</if>
+		</where>
+	</update>
 	<resultMap id="hotelOrderMap" type="HotelOrder">
 		<id property="id" javaType="java.lang.Long" column="id"/>
 		<result property="userId" javaType="java.lang.Long" column="userId"/>

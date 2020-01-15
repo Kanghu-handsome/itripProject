@@ -52,4 +52,8 @@ public interface HotelService {
 	 * @throws Exception
 	 */
 	List<HotelImage> getTypeId(Long targetId)throws Exception;
+	/***
+	 * <b>获取酒店相关信息</b>
+	 */
+	Hotel gethoteldesc(Long hotelId)throws Exception;
 }

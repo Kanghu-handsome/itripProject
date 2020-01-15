@@ -28,10 +28,6 @@ public interface CommentService {
 	 * @throws Exception
 	 */
 	CommentCountVO getcount(Long hotelId)throws Exception;
-	/***
-	 * <b>获取酒店相关信息</b>
-	 */
-	ItripHotelDescVO gethoteldesc(Long hotelId)throws Exception;
 	/**
 	 * <b>查询出游类型列表</b>
 	 * @param vo

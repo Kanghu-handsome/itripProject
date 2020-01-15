@@ -127,5 +127,17 @@ public class HotelServiceImpl implements HotelService {
 		List<HotelImage> hotelImageList = hotelRoomDao.findHotelImageListByQuery(queryMap);
 		return hotelImageList;
 	}
+	/***
+	 * <b>获取酒店相关信息</b>
+	 */
+	public Hotel gethoteldesc(Long hotelId) throws Exception {
+		Map<String,Object>queryMap=new HashMap<String,Object>();
+		queryMap.put("id", hotelId);
+		System.out.println("ABC");
+		List<Hotel>hotelList=hotelDao.findHotelListByQuery(queryMap);
+		System.out.println(hotelList.size());
+		return hotelList.get(0);
+	}
+
 
 }
