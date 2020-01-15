@@ -98,6 +98,7 @@
 		<where>
 			<trim suffixOverrides="and">
 				<if test="id != null">iho.id=#{id} and</if>
+				<if test="userId != null">iho.userId=#{userId} and</if>
 				<if test="hotelId != null">iho.hotelId=#{hotelId} and </if>
 				<if test="orderNo != null">iho.orderNo=#{orderNo} and</if>
 			</trim>

@@ -88,7 +88,6 @@ public class CommentController extends BaseController {
 	public ResponseResult<Object> gethoteldesc(@PathVariable("hotelId") Long hotelId)throws Exception{
 		Hotel hotel= hotelTransport.gethoteldesc(hotelId);
 		return new ResponseResult<>(SuccessEnum.SUCCESS_TRUE,hotel);
-
 	}
 
 	/**
