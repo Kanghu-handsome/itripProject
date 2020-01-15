@@ -29,7 +29,7 @@ public interface UserInfoTransport {
 	 * @return
 	 */
 	@RequestMapping(value = "/deluserlinkuser",method = RequestMethod.POST)
-	boolean deluserlinkuser(@RequestParam Long ids)throws Exception;
+	boolean deluserlinkuser(@RequestParam Long[] ids)throws Exception;
 
 
 	/**

@@ -1,5 +1,6 @@
 package cn.ekgc.itrip.dao;
 
+import cn.ekgc.itrip.pojo.entity.OrderLinkUser;
 import cn.ekgc.itrip.pojo.entity.User;
 import cn.ekgc.itrip.pojo.entity.UserLinkUser;
 import cn.ekgc.itrip.pojo.vo.ItripAddUserLinkUserVO;
@@ -37,4 +38,7 @@ public interface UserInfoDao {
 	 */
 
 	boolean modifyuserlinkuser(UserLinkUser userLinkUser)throws Exception;
+	List<OrderLinkUser> findLinkUserListByQuery()throws Exception;
+
+	List<OrderLinkUser> findUserListByQuery()throws Exception;
 }

@@ -22,7 +22,7 @@ public interface UserInfoService {
 	 * @param ids
 	 * @return
 	 */
-	boolean deluserlinkuser( Long ids)throws Exception;
+	boolean deluserlinkuser( Long[] ids)throws Exception;
 
 
 	/**

@@ -31,7 +31,7 @@ public class UserInfoTransportImpl implements UserInfoTransport {
 	 * @return
 	 */
 	@RequestMapping(value = "/deluserlinkuser",method = RequestMethod.POST)
-	public boolean deluserlinkuser(@RequestParam Long ids)throws Exception{
+	public boolean deluserlinkuser(@RequestParam Long[] ids)throws Exception{
 		return userInfoService.deluserlinkuser(ids);
 	}
 	/**

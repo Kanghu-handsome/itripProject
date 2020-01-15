@@ -78,7 +78,7 @@ public class UserInfoController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/deluserlinkuser",method = RequestMethod.GET)
-	public ResponseResult<Object>deluserlinkuser(Long ids) throws Exception {
+	public ResponseResult<Object>deluserlinkuser(Long[] ids) throws Exception {
 		//获得常用联系人
 		Cookie[]cookies=request.getCookies();
 		String userCode="";

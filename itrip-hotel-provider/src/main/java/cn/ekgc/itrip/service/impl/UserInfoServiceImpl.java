@@ -1,6 +1,8 @@
 package cn.ekgc.itrip.service.impl;
 
 import cn.ekgc.itrip.dao.UserInfoDao;
+import cn.ekgc.itrip.pojo.entity.HotelOrder;
+import cn.ekgc.itrip.pojo.entity.OrderLinkUser;
 import cn.ekgc.itrip.pojo.entity.User;
 import cn.ekgc.itrip.pojo.entity.UserLinkUser;
 import cn.ekgc.itrip.pojo.vo.ItripAddUserLinkUserVO;
@@ -11,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @Service("userInfoService")
 @Transactional
@@ -23,7 +23,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	private UserInfoDao userInfoDao;
 	/***
 	 * <B>查询联系人</B>
-	 * @param vo
+	 * @param
 	 * @return
 	 * @throws Exception
 	 */
@@ -42,12 +42,19 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 * @param ids
 	 * @return
 	 */
-	public boolean deluserlinkuser( Long ids) throws Exception {
-		boolean flag=userInfoDao.deluserlinkuser(ids);
-		if (flag){
-			return true;
+	public boolean deluserlinkuser( Long[] ids) throws Exception {
+		List<OrderLinkUser>userList=userInfoDao.findUserListByQuery();
+		List<Long>list=new ArrayList();
+		for (OrderLinkUser orderLinkUser:userList) {
+			list.add(orderLinkUser.getLinkUserId());
 		}
-		return false;
+		for (Long id : ids) {
+			if (!list.contains(id)) {
+				boolean flag=userInfoDao.deluserlinkuser(id);
+			}
+		}
+
+		return true;
 	}
 
 

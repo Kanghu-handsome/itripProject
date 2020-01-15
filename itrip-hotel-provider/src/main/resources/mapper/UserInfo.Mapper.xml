@@ -23,6 +23,9 @@
 			</trim>
 		</where>
 	</select>
+	<select id="findUserListByQuery" parameterType="java.util.Map" resultMap="OrderLinkUserMap">
+		select *from itrip_order_link_user
+	</select>
 	<insert id="adduserlinkuser" parameterType="UserLinkUser">
 		insert into itrip_user_link_user(
 		<trim suffixOverrides=",">
@@ -74,6 +77,16 @@
 		<result property="linkPhone" javaType="java.lang.String" column="linkPhone"/>
 		<result property="userId" javaType="java.lang.Long" column="userId"/>
 		<result property="linkIdCardType" javaType="java.lang.Integer" column="linkIdCardType"/>
+		<result property="modifyDate" javaType="java.util.Date" column="modifyDate"/>
+		<result property="modifiedBy" javaType="java.lang.Long" column="modifiedBy"/>
+	</resultMap>
+	<resultMap id="OrderLinkUserMap" type="OrderLinkUser">
+		<id property="id" javaType="java.lang.Long" column="id"/>
+		<result property="orderId" javaType="java.lang.Long" column="orderId"/>
+		<result property="linkUserId" javaType="java.lang.Long" column="linkUserId"/>
+		<result property="linkUserName" javaType="java.lang.String" column="linkUserName"/>
+		<result property="creationDate" javaType="java.util.Date" column="creationDate"/>
+		<result property="createdBy" javaType="java.lang.Long" column="createdBy"/>
 		<result property="modifyDate" javaType="java.util.Date" column="modifyDate"/>
 		<result property="modifiedBy" javaType="java.lang.Long" column="modifiedBy"/>
 	</resultMap>
