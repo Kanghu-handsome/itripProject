@@ -1,8 +1,6 @@
 package cn.ekgc.itrip.comment.transport;
 
-import cn.ekgc.itrip.pojo.entity.Comment;
-import cn.ekgc.itrip.pojo.entity.Hotel;
-import cn.ekgc.itrip.pojo.entity.ScoreComment;
+import cn.ekgc.itrip.pojo.entity.*;
 import cn.ekgc.itrip.pojo.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,11 +49,22 @@ public interface CommentTransport {
 	@RequestMapping(value = "/gethoteldesc",method = RequestMethod.POST)
 	ItripHotelDescVO gethoteldesc(@RequestParam Long hotelId)throws Exception;
 	/**
-	 * <b>酒店类型</b>
-	 * @param vo
+	 * <b>查询出游类型列表</b>
+	 * @param
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/gettraveltype",method = RequestMethod.POST)
-	List<Hotel> gettraveltype(@RequestBody ItripLabelDicVO vo)throws Exception;
+	List<LabelDic> gettraveltype()throws Exception;
+
+
+
+	/***
+	 * <b>新增评论<b/>
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/add",method = RequestMethod.POST)
+	boolean Add(@RequestBody ItripAddCommentVO vo,@RequestParam Long userId )throws Exception;
 }

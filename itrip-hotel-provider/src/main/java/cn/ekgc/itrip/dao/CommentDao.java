@@ -1,6 +1,7 @@
 package cn.ekgc.itrip.dao;
 
 import cn.ekgc.itrip.pojo.entity.Comment;
+import cn.ekgc.itrip.pojo.entity.ItripComment;
 import cn.ekgc.itrip.pojo.entity.ScoreComment;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,7 @@ public interface CommentDao {
 	List<Comment> findCommentByQuery(Map<String, Object> queryMap)throws Exception;
 
 	ScoreComment findScoreCommentByHotelId(Long hotelId)throws Exception;
+
+	boolean add(Comment comment)throws Exception;
+
 }

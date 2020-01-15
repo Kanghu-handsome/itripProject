@@ -36,4 +36,6 @@ public interface HotelOrderDao {
 
 
 	List<OrderLinkUser> findOrderLinkUserListByQuery(Map<String, Object> queryMap)throws Exception;
+
+	boolean updateOrderStatus(HotelOrder hotelOrder)throws Exception;
 }

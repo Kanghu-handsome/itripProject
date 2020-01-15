@@ -1,9 +1,7 @@
 package cn.ekgc.itrip.transportImpl;
 
 import cn.ekgc.itrip.comment.transport.CommentTransport;
-import cn.ekgc.itrip.pojo.entity.Comment;
-import cn.ekgc.itrip.pojo.entity.Hotel;
-import cn.ekgc.itrip.pojo.entity.ScoreComment;
+import cn.ekgc.itrip.pojo.entity.*;
 import cn.ekgc.itrip.pojo.vo.*;
 import cn.ekgc.itrip.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,13 +47,26 @@ public class CommentTransportImpl implements CommentTransport {
 		return commentService.gethoteldesc(hotelId);
 	}
 	/**
-	 * <b>酒店类型</b>
-	 * @param vo
+	 * <b>查询出游类型列表</b>
+	 * @param
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/gettraveltype",method = RequestMethod.POST)
-	public List<Hotel> gettraveltype(@RequestBody ItripLabelDicVO vo)throws Exception{
-		return commentService.gettraveltype(vo);
+	public List<LabelDic> gettraveltype()throws Exception{
+		return commentService.gettraveltype();
+	}
+
+
+
+	/***
+	 * <b>新增评论<b/>
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/add",method = RequestMethod.POST)
+	public boolean Add(@RequestBody ItripAddCommentVO vo,@RequestParam Long userId) throws Exception {
+		return commentService.Add(vo,userId);
 	}
 }

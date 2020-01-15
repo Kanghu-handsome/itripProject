@@ -1,17 +1,18 @@
 package cn.ekgc.itrip.service.impl;
 import cn.ekgc.itrip.dao.CommentDao;
 import cn.ekgc.itrip.dao.HotelDao;
-import cn.ekgc.itrip.pojo.entity.Comment;
-import cn.ekgc.itrip.pojo.entity.Hotel;
-import cn.ekgc.itrip.pojo.entity.ItripHotel;
-import cn.ekgc.itrip.pojo.entity.ScoreComment;
+import cn.ekgc.itrip.dao.HotelOrderDao;
+import cn.ekgc.itrip.dao.LabelDicDao;
+import cn.ekgc.itrip.pojo.entity.*;
 import cn.ekgc.itrip.pojo.vo.*;
 import cn.ekgc.itrip.service.CommentService;
-import cn.ekgc.itrip.service.HotelService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.InterfaceAddress;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,10 @@ public class CommontServiceImpl implements CommentService {
 	private CommentDao commentDao;
 	@Autowired
 	private HotelDao hotelDao;
+	@Autowired
+	private LabelDicDao labelDicDao;
+	@Autowired
+	private HotelOrderDao hotelOrderDao;
 	/**
 	 * <b>根据评论类型查询评论列表，并分页显示</b>
 	 *
@@ -104,13 +109,45 @@ public class CommontServiceImpl implements CommentService {
 	}
 
 	/**
-	 * <b>酒店类型</b>
+	 * <b>查询出游类型列表</b>
+	 * @param
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LabelDic> gettraveltype() throws Exception {
+		Map<String,Object>queryMap=new HashMap<String,Object>();
+		queryMap.put("parentId", 107);
+		List<LabelDic>labelDicList= labelDicDao.findLabelDicListByQuery(queryMap);
+		return labelDicList;
+	}
+
+	/***
+	 * <b>新增评论<b/>
 	 * @param vo
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Hotel> gettraveltype(ItripLabelDicVO vo) throws Exception {
-
-		return null;
+	public boolean Add(ItripAddCommentVO vo, Long userId) throws Exception {
+		Comment comment=new Comment();
+		BeanUtils.copyProperties(vo, comment);
+		comment.setUserId(userId);
+		comment.setCreatedBy(userId);
+		comment.setCreationDate(new Date());
+		Integer score =(comment.getFacilitiesScore()+comment.getHygieneScore()+comment.getPositionScore()+comment.getServiceScore())/4;
+		comment.setScore(score);
+		//改变状态
+		boolean flag=commentDao.add(comment);
+			if (flag){
+				HotelOrder hotelOrder=new HotelOrder();
+				hotelOrder.setCreationDate(new Date());
+				hotelOrder.setOrderStatus(4);
+				hotelOrder.setId(vo.getOrderId());
+				hotelOrder.setModifiedBy(userId);
+				flag= hotelOrderDao.updateOrderStatus(hotelOrder);
+				return flag;
+			}
+			return flag;
 	}
+
+
 }

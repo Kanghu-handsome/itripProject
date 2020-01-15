@@ -5,14 +5,13 @@ import cn.ekgc.itrip.base.enums.SuccessEnum;
 import cn.ekgc.itrip.comment.transport.CommentTransport;
 import cn.ekgc.itrip.hotel.transport.HotelOrderTransport;
 import cn.ekgc.itrip.hotel.transport.HotelRoomTransport;
-import cn.ekgc.itrip.pojo.entity.Comment;
-import cn.ekgc.itrip.pojo.entity.Hotel;
-import cn.ekgc.itrip.pojo.entity.HotelImage;
-import cn.ekgc.itrip.pojo.entity.ScoreComment;
+import cn.ekgc.itrip.pojo.entity.*;
 import cn.ekgc.itrip.pojo.vo.*;
+import cn.ekgc.itrip.user.transport.UserTransport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +30,8 @@ public class CommentController extends BaseController {
 	 */
 	@Autowired
 	private CommentTransport commentTransport;
+	@Autowired
+	private UserTransport userTransport;
 	@Autowired
 	private HotelRoomTransport hotelRoomTransport;
 	@RequestMapping(value = "/getcommentlist", method = RequestMethod.POST)
@@ -89,14 +90,38 @@ public class CommentController extends BaseController {
 	}
 
 	/**
-	 * <b>酒店类型</b>
-	 * @param vo
+	 * <b>查询出游类型列表</b>
+	 * @param
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/gettraveltype",method = RequestMethod.GET)
-	public ResponseResult<Object>gettraveltype(@RequestBody ItripLabelDicVO vo)throws Exception{
-		List<Hotel> voList=commentTransport.gettraveltype(vo);
-		return new ResponseResult<>(SuccessEnum.SUCCESS_TRUE,vo);
+	public ResponseResult<Object>gettraveltype()throws Exception{
+		List<LabelDic> voList=commentTransport.gettraveltype();
+		return new ResponseResult<>(SuccessEnum.SUCCESS_TRUE,voList);
+	}
+
+	/***
+	 * <b>新增评论<b/>
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/add",method = RequestMethod.POST)
+	public ResponseResult<Object>add(@RequestBody ItripAddCommentVO vo) throws Exception {
+		//获得Cookies里面存放的值
+		Cookie[] cookies=request.getCookies();
+		String userCode="";
+		//循环Cooies每一个对象
+		for (Cookie cookie:cookies) {
+			//判断cookie里面的一个k和value值是否匹配
+			if (cookie.getName().equals("user")){
+				userCode=cookie.getValue();
+			}
+		}
+		//通过传递userCode参数得到user对象
+		User user=userTransport.getUserByUserCode(userCode);
+		boolean flag=commentTransport.Add(vo,user.getId());
+		return new ResponseResult<>(SuccessEnum.SUCCESS_TRUE,flag) ;
 	}
 }

@@ -1,8 +1,6 @@
 package cn.ekgc.itrip.service;
 
-import cn.ekgc.itrip.pojo.entity.Comment;
-import cn.ekgc.itrip.pojo.entity.Hotel;
-import cn.ekgc.itrip.pojo.entity.ScoreComment;
+import cn.ekgc.itrip.pojo.entity.*;
 import cn.ekgc.itrip.pojo.vo.*;
 
 import java.util.List;
@@ -35,10 +33,17 @@ public interface CommentService {
 	 */
 	ItripHotelDescVO gethoteldesc(Long hotelId)throws Exception;
 	/**
-	 * <b>酒店类型</b>
+	 * <b>查询出游类型列表</b>
 	 * @param vo
 	 * @return
 	 * @throws Exception
 	 */
-	List<Hotel> gettraveltype(ItripLabelDicVO vo)throws Exception;
+	List<LabelDic> gettraveltype()throws Exception;
+	/***
+	 * <b>新增评论<b/>
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	boolean Add(ItripAddCommentVO vo, Long userId)throws Exception;
 }
