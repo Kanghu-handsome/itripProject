@@ -271,9 +271,14 @@ public class HotelOrderServiceImpl implements HorderOrderService {
 		if (vo.getOrderType() != -1) {
 			queryMap.put("orderType", vo.getOrderType());
 		}
+		Integer pageNo = 1;
+		if (vo.getPageNo() != null) {
+			pageNo = vo.getPageNo();
+		}
+		Integer pageSize = vo.getPageSize();
 		Integer totalPage = hotelOrderDao.findOrderByQuery(queryMap).size();
-		queryMap.put("begin", (vo.getPageNo() - 1) * (vo.getPageSize()));
-		queryMap.put("size", vo.getPageSize());
+		queryMap.put("begin",  (pageNo- 1) * (vo.getPageSize()));
+		queryMap.put("size", pageSize);
 		//获取分页列表
 		List<HotelOrder> hotelOrderList = hotelOrderDao.findOrderByQuery(queryMap);
 		//获得总条数
@@ -281,7 +286,7 @@ public class HotelOrderServiceImpl implements HorderOrderService {
 		queryMap.remove("size");
 		Integer total = hotelOrderDao.findOrderByQuery(queryMap).size();
 		// 封装分页对象
-		Page<HotelOrder> page = new Page<HotelOrder>( vo.getPageNo(),vo.getPageSize(), total);
+		Page<HotelOrder> page = new Page<HotelOrder>(pageNo, pageSize, total);
 		page.setRows(hotelOrderList);
 		return page;
 	}
